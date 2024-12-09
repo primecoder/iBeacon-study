@@ -12,7 +12,6 @@ import CoreBluetooth
 @Observable
 class PeripheralManager: NSObject {
     
-//    let beaconUUID = UUID(uuidString: "00000000-0000-0000-0000-000000000001")!
     let beaconUUID = UUID(uuidString: "8B96586C-2AAB-488F-80BA-7774290D0C8D")!
     var peripheralManager: CBPeripheralManager!
     var region: CLBeaconRegion!
@@ -24,7 +23,7 @@ class PeripheralManager: NSObject {
     var heartbeat: Int = 0
     
     var locationManager = CLLocationManager()
-    var beaconConstraints = [CLBeaconIdentityConstraint: [CLBeacon]]()
+    var beaconRegions = [CLBeaconRegion]()
     var beacons = [CLProximity: [CLBeacon]]()
 
     override init () {
@@ -58,16 +57,10 @@ class PeripheralManager: NSObject {
         
         print("Activate Beacon UUID: \(beaconUUID), ID: \(beaconMinorID)")
         
-        let constraint = CLBeaconIdentityConstraint(
-            uuid: beaconUUID,
-            major: 1,
-            minor: CLBeaconMinorValue(beaconMinorID)
-        )
-        region = CLBeaconRegion(
-            beaconIdentityConstraint: constraint,
-            identifier: bundleURL
-        )
-        let peripheralData = region.peripheralData(withMeasuredPower: nil) as? [String: Any]
+        let beaconRegion = CLBeaconRegion(uuid: beaconUUID, major: 1, minor: CLBeaconMinorValue(beaconMinorID), identifier: bundleURL)
+        beaconRegions.append(beaconRegion)
+
+        let peripheralData = beaconRegion.peripheralData(withMeasuredPower: nil) as? [String: Any]
         peripheralManager.startAdvertising(peripheralData)
     }
     
@@ -83,10 +76,10 @@ class PeripheralManager: NSObject {
     
     private func initBeaconMonitoring() {
         self.locationManager.requestWhenInUseAuthorization()
-        let constraint = CLBeaconIdentityConstraint(uuid: beaconUUID)
-        self.beaconConstraints[constraint] = []
-        let beconRegion = CLBeaconRegion(beaconIdentityConstraint: constraint, identifier: beaconUUID.uuidString)
-        self.locationManager.startMonitoring(for: beconRegion)
+        
+        let beaconRegion = CLBeaconRegion(uuid: beaconUUID, identifier: beaconUUID.uuidString)
+        self.beaconRegions.append(beaconRegion)
+        self.locationManager.startMonitoring(for: beaconRegion)
     }
 }
 
@@ -103,25 +96,20 @@ extension PeripheralManager: CBPeripheralManagerDelegate {
 
 extension PeripheralManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
-        let beaconRegion = region as? CLBeaconRegion
+        guard let beaconRegion = region as? CLBeaconRegion else { return }
         if state == .inside {
-            manager.startRangingBeacons(satisfying: beaconRegion!.beaconIdentityConstraint)
+            manager.startRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: beaconRegion.uuid))
         } else {
-            manager.stopRangingBeacons(satisfying: beaconRegion!.beaconIdentityConstraint)
+            manager.stopRangingBeacons(satisfying: CLBeaconIdentityConstraint(uuid: beaconRegion.uuid))
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
         
-        beaconConstraints[beaconConstraint] = beacons
+        // This logic remains mostly unchanged except replacing the managing structure
         self.beacons.removeAll()
-        var allBeacons = [CLBeacon]()
-        for regionResult in beaconConstraints.values {
-            allBeacons.append(contentsOf: regionResult)
-        }
-        
         for range in [CLProximity.unknown, .immediate, .near, .far] {
-            let proximityBeacons = allBeacons.filter { $0.proximity == range }
+            let proximityBeacons = beacons.filter { $0.proximity == range }
             if !proximityBeacons.isEmpty {
                 self.beacons[range] = proximityBeacons
             }
