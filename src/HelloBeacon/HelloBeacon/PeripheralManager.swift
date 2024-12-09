@@ -23,10 +23,19 @@ class PeripheralManager: NSObject {
     
     var heartbeat: Int = 0
     
+    var locationManager = CLLocationManager()
+    var beaconConstraints = [CLBeaconIdentityConstraint: [CLBeacon]]()
+    var beacons = [CLProximity: [CLBeacon]]()
+
     override init () {
         super.init()
         
-        peripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
+        peripheralManager = CBPeripheralManager(
+            delegate: self, queue: nil, options: nil)
+        
+        locationManager.delegate = self
+        
+        initBeaconMonitoring()
         
 //        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
 //            if self?.isBeaconEnabled ?? false {
@@ -70,6 +79,7 @@ class PeripheralManager: NSObject {
         peripheralManager.startAdvertising(peripheralData)
     }
     
+    @discardableResult
     func setBeaconMinorID(_ minorID: Int) -> Bool {
         guard !isBeaconEnabled else {
             print("WARN: Beacon ID cannot be changed while it is enabled")
@@ -78,10 +88,17 @@ class PeripheralManager: NSObject {
         beaconMinorID = minorID
         return true
     }
+    
+    private func initBeaconMonitoring() {
+        self.locationManager.requestWhenInUseAuthorization()
+        let constraint = CLBeaconIdentityConstraint(uuid: beaconUUID)
+        self.beaconConstraints[constraint] = []
+        let beconRegion = CLBeaconRegion(beaconIdentityConstraint: constraint, identifier: beaconUUID.uuidString)
+        self.locationManager.startMonitoring(for: beconRegion)
+    }
 }
 
 extension PeripheralManager: CBPeripheralManagerDelegate {
-    
     func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
         print("peripheralManagerDidUpdateState: \(peripheral.state)")
         if peripheral.state == .poweredOn {
@@ -91,5 +108,35 @@ extension PeripheralManager: CBPeripheralManagerDelegate {
         }
             
     }
+}
+
+extension PeripheralManager: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
+        let beaconRegion = region as? CLBeaconRegion
+        if state == .inside {
+            manager.startRangingBeacons(satisfying: beaconRegion!.beaconIdentityConstraint)
+        } else {
+            manager.stopRangingBeacons(satisfying: beaconRegion!.beaconIdentityConstraint)
+        }
+    }
     
+    func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
+        
+        beaconConstraints[beaconConstraint] = beacons
+        
+        self.beacons.removeAll()
+        
+        var allBeacons = [CLBeacon]()
+        
+        for regionResult in beaconConstraints.values {
+            allBeacons.append(contentsOf: regionResult)
+        }
+        
+        for range in [CLProximity.unknown, .immediate, .near, .far] {
+            let proximityBeacons = allBeacons.filter { $0.proximity == range }
+            if !proximityBeacons.isEmpty {
+                self.beacons[range] = proximityBeacons
+            }
+        }
+    }
 }

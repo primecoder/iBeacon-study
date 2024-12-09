@@ -14,23 +14,24 @@ struct BeaconSettingView: View {
     @State private var beaconID = 0
     
     var body: some View {
-        Picker("Beacon IDs", selection: $beaconID) {
-            ForEach(beaconIDs, id: \.self) { id in
-                Text("\(id)")
+        VStack {
+            Picker("Beacon IDs", selection: $beaconID) {
+                ForEach(beaconIDs, id: \.self) { id in
+                    Text("\(id)")
+                }
             }
+            .disabled(peripheralManager.isBeaconEnabled)
+            .pickerStyle(.wheel)
+            
+            Button("Change Beacon's ID") {
+                peripheralManager.setBeaconMinorID(beaconID)
+            }
+            .disabled(peripheralManager.isBeaconEnabled)
         }
-        .disabled(peripheralManager.isBeaconEnabled)
-        .pickerStyle(.wheel)
         .onAppear {
             beaconID = peripheralManager.beaconMinorID
         }
-        .onChange(of: beaconID, initial: false) { oldValue, newValue in
-            if peripheralManager.setBeaconMinorID(beaconID) {
-                // Do nothing
-            } else {
-                beaconID = oldValue
-            }
-        }
+        
     }
 }
 
