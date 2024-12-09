@@ -21,7 +21,9 @@ struct BeaconSettingView: View {
                 }
             }
             .disabled(peripheralManager.isBeaconEnabled)
+#if os(iOS)
             .pickerStyle(.wheel)
+#endif
             
             Button("Change Beacon's ID") {
                 peripheralManager.setBeaconMinorID(beaconID)

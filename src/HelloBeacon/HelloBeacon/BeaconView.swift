@@ -30,7 +30,7 @@ struct BeaconView: View {
                         .resizable()
                         .foregroundStyle(.tint)
                         .frame(width: 50, height: 50)
-                    Text("Beacon: \(peripheralManager.beaconMinorID)")
+                    Text("Beacon \(peripheralManager.beaconMinorID)")
                 }
                 .tint(beaconFgColor)
                 .padding()

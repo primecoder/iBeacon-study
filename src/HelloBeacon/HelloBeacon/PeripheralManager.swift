@@ -32,16 +32,8 @@ class PeripheralManager: NSObject {
         
         peripheralManager = CBPeripheralManager(
             delegate: self, queue: nil, options: nil)
-        
         locationManager.delegate = self
-        
         initBeaconMonitoring()
-        
-//        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
-//            if self?.isBeaconEnabled ?? false {
-//                self?.heartbeat += 1
-//            }
-//        }
     }
     
     func configureBeaconRegion() {
@@ -106,7 +98,6 @@ extension PeripheralManager: CBPeripheralManagerDelegate {
         } else {
             print("PeripheralManager is not powered on")
         }
-            
     }
 }
 
@@ -123,11 +114,8 @@ extension PeripheralManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
         
         beaconConstraints[beaconConstraint] = beacons
-        
         self.beacons.removeAll()
-        
         var allBeacons = [CLBeacon]()
-        
         for regionResult in beaconConstraints.values {
             allBeacons.append(contentsOf: regionResult)
         }
