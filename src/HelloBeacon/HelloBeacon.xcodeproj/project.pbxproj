@@ -6,38 +6,8 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		50FA05872D069E79007353D6 /* HelloBeaconScanner Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 50FA05862D069E79007353D6 /* HelloBeaconScanner Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-/* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		50FA05882D069E79007353D6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5065F76C2D02707200CF7F3C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 50FA05852D069E79007353D6;
-			remoteInfo = "HelloBeaconScanner Watch App";
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		50FA05972D069E7A007353D6 /* Embed Watch Content */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
-			dstSubfolderSpec = 16;
-			files = (
-				50FA05872D069E79007353D6 /* HelloBeaconScanner Watch App.app in Embed Watch Content */,
-			);
-			name = "Embed Watch Content";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		5065F7742D02707200CF7F3C /* HelloBeacon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloBeacon.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		50FA05812D069E79007353D6 /* HelloBeaconScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloBeaconScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		50FA05862D069E79007353D6 /* HelloBeaconScanner Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HelloBeaconScanner Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -46,22 +16,10 @@
 			path = HelloBeacon;
 			sourceTree = "<group>";
 		};
-		50FA058A2D069E79007353D6 /* HelloBeaconScanner Watch App */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "HelloBeaconScanner Watch App";
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		5065F7712D02707200CF7F3C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		50FA05832D069E79007353D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -75,7 +33,6 @@
 			isa = PBXGroup;
 			children = (
 				5065F7762D02707200CF7F3C /* HelloBeacon */,
-				50FA058A2D069E79007353D6 /* HelloBeaconScanner Watch App */,
 				5065F7752D02707200CF7F3C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -84,8 +41,6 @@
 			isa = PBXGroup;
 			children = (
 				5065F7742D02707200CF7F3C /* HelloBeacon.app */,
-				50FA05812D069E79007353D6 /* HelloBeaconScanner.app */,
-				50FA05862D069E79007353D6 /* HelloBeaconScanner Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,47 +70,6 @@
 			productReference = 5065F7742D02707200CF7F3C /* HelloBeacon.app */;
 			productType = "com.apple.product-type.application";
 		};
-		50FA05802D069E79007353D6 /* HelloBeaconScanner */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 50FA05982D069E7A007353D6 /* Build configuration list for PBXNativeTarget "HelloBeaconScanner" */;
-			buildPhases = (
-				50FA057F2D069E79007353D6 /* Resources */,
-				50FA05972D069E7A007353D6 /* Embed Watch Content */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				50FA05892D069E79007353D6 /* PBXTargetDependency */,
-			);
-			name = HelloBeaconScanner;
-			packageProductDependencies = (
-			);
-			productName = HelloBeaconScanner;
-			productReference = 50FA05812D069E79007353D6 /* HelloBeaconScanner.app */;
-			productType = "com.apple.product-type.application.watchapp2-container";
-		};
-		50FA05852D069E79007353D6 /* HelloBeaconScanner Watch App */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 50FA05942D069E7A007353D6 /* Build configuration list for PBXNativeTarget "HelloBeaconScanner Watch App" */;
-			buildPhases = (
-				50FA05822D069E79007353D6 /* Sources */,
-				50FA05832D069E79007353D6 /* Frameworks */,
-				50FA05842D069E79007353D6 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				50FA058A2D069E79007353D6 /* HelloBeaconScanner Watch App */,
-			);
-			name = "HelloBeaconScanner Watch App";
-			packageProductDependencies = (
-			);
-			productName = "HelloBeaconScanner Watch App";
-			productReference = 50FA05862D069E79007353D6 /* HelloBeaconScanner Watch App.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -167,12 +81,6 @@
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					5065F7732D02707200CF7F3C = {
-						CreatedOnToolsVersion = 16.1;
-					};
-					50FA05802D069E79007353D6 = {
-						CreatedOnToolsVersion = 16.1;
-					};
-					50FA05852D069E79007353D6 = {
 						CreatedOnToolsVersion = 16.1;
 					};
 				};
@@ -192,28 +100,12 @@
 			projectRoot = "";
 			targets = (
 				5065F7732D02707200CF7F3C /* HelloBeacon */,
-				50FA05802D069E79007353D6 /* HelloBeaconScanner */,
-				50FA05852D069E79007353D6 /* HelloBeaconScanner Watch App */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5065F7722D02707200CF7F3C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		50FA057F2D069E79007353D6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		50FA05842D069E79007353D6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -230,22 +122,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		50FA05822D069E79007353D6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		50FA05892D069E79007353D6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 50FA05852D069E79007353D6 /* HelloBeaconScanner Watch App */;
-			targetProxy = 50FA05882D069E79007353D6 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		5065F7812D02707400CF7F3C /* Debug */ = {
@@ -446,98 +323,6 @@
 			};
 			name = Release;
 		};
-		50FA05952D069E7A007353D6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"HelloBeaconScanner Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = Z6UU7WL5HP;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = HelloBeaconScanner;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKWatchOnly = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = authors.ace.research.HelloBeaconScanner.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 11.1;
-			};
-			name = Debug;
-		};
-		50FA05962D069E7A007353D6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"HelloBeaconScanner Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = Z6UU7WL5HP;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = HelloBeaconScanner;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKWatchOnly = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = authors.ace.research.HelloBeaconScanner.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 11.1;
-			};
-			name = Release;
-		};
-		50FA05992D069E7A007353D6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z6UU7WL5HP;
-				INFOPLIST_KEY_CFBundleDisplayName = HelloBeaconScanner;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = authors.ace.research.HelloBeaconScanner;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		50FA059A2D069E7A007353D6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z6UU7WL5HP;
-				INFOPLIST_KEY_CFBundleDisplayName = HelloBeaconScanner;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = authors.ace.research.HelloBeaconScanner;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SWIFT_VERSION = 5.0;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -555,24 +340,6 @@
 			buildConfigurations = (
 				5065F7842D02707400CF7F3C /* Debug */,
 				5065F7852D02707400CF7F3C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		50FA05942D069E7A007353D6 /* Build configuration list for PBXNativeTarget "HelloBeaconScanner Watch App" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				50FA05952D069E7A007353D6 /* Debug */,
-				50FA05962D069E7A007353D6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		50FA05982D069E7A007353D6 /* Build configuration list for PBXNativeTarget "HelloBeaconScanner" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				50FA05992D069E7A007353D6 /* Debug */,
-				50FA059A2D069E7A007353D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

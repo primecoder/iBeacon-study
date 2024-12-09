@@ -11,6 +11,8 @@ import CoreLocation
 struct BeaconView: View {
     
     @State var peripheralManager: PeripheralManager
+    @State private var scale = 1.0
+    @State private var iconOpacity: Double = 0.1
 
     var beaconImageName: String {
         peripheralManager.isBeaconEnabled ? "light.beacon.min.fill" : "light.beacon.min"
@@ -28,8 +30,9 @@ struct BeaconView: View {
                 VStack {
                     Image(systemName: beaconImageName)
                         .resizable()
-                        .foregroundStyle(.tint)
+                        .foregroundStyle(.tint.opacity(iconOpacity))
                         .frame(width: 50, height: 50)
+                        .scaleEffect(scale)
                     Text("Beacon \(peripheralManager.beaconMinorID)")
                 }
                 .tint(beaconFgColor)
@@ -52,6 +55,22 @@ struct BeaconView: View {
             }
         }
         .padding()
+        .onChange(of: peripheralManager.isBeaconEnabled, initial: true) { oldValue, newValue in
+            if newValue {
+                let animation = Animation.easeInOut(duration: 1)
+                let repeated = animation.repeatForever(autoreverses: true)
+                withAnimation(repeated) {
+                    scale = 1.2
+                    iconOpacity = 0.2
+                }
+            } else {
+                let animation = Animation.easeInOut(duration: 1)
+                withAnimation(animation) {
+                    scale = 1.0
+                    iconOpacity = 1.0
+                }
+            }
+        }
     }
     
     private func getProximityDistance(accuracy: CLLocationAccuracy) -> String {
