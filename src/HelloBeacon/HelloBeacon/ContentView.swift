@@ -2,36 +2,25 @@
 //  ContentView.swift
 //  HelloBeacon
 //
-//  Created by ace on 6/12/2024.
+//  Created by ace on 9/12/2024.
 //
 
 import SwiftUI
 
 struct ContentView: View {
-    
-    @State var peripheralManager = PeripheralManager()
-    
+    @State var peripheralManager: PeripheralManager
     var body: some View {
-        VStack {
-            Button {
-                peripheralManager.configureBeaconRegion()
-            } label: {
-                VStack {
-                    Image(systemName: "globe")
-                        .imageScale(.large)
-                        .foregroundStyle(.tint)
-                    Text("Enable Beacon")
-                }
-                .padding()
+        TabView {
+            Tab("Beacon", systemImage: "light.beacon.max") {
+                BeaconView(peripheralManager: peripheralManager)
             }
-
-            Text("Peripheral state: \(peripheralManager.state.rawValue)")
-            Text("Heartbeat: \(peripheralManager.heartbeat)")
+            Tab("Settings", systemImage: "gear") {
+                BeaconSettingView(peripheralManager: peripheralManager)
+            }
         }
-        .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(peripheralManager: PeripheralManager())
 }

@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct HelloBeaconApp: App {
+    @State var peripheralManager = PeripheralManager()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(peripheralManager: peripheralManager)
         }
     }
 }
