@@ -20,8 +20,6 @@ class PeripheralManager: NSObject {
     var isBeaconEnabled: Bool = false
     var beaconMinorID: Int = 1
     
-    var heartbeat: Int = 0
-    
     var locationManager = CLLocationManager()
     var beaconRegions = [CLBeaconRegion]()
     var beacons = [CLProximity: [CLBeacon]]()
@@ -58,7 +56,6 @@ class PeripheralManager: NSObject {
         isBeaconEnabled.toggle()
         guard isBeaconEnabled else {
             print("Beacon is deactivated!")
-            heartbeat = 0
             return false
         }
         
