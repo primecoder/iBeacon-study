@@ -25,6 +25,13 @@ class PeripheralManager: NSObject {
     var locationManager = CLLocationManager()
     var beaconRegions = [CLBeaconRegion]()
     var beacons = [CLProximity: [CLBeacon]]()
+    
+    private static let allIDs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    private var registerredIDs: Set<Int> = []
+    
+    var availableIDs: [Int] {
+        PeripheralManager.allIDs.filter { !registerredIDs.contains($0) }
+    }
 
     override init () {
         super.init()
@@ -35,24 +42,29 @@ class PeripheralManager: NSObject {
         initBeaconMonitoring()
     }
     
-    func configureBeaconRegion() {
+    @discardableResult
+    func configureBeaconRegion() -> Bool {
         guard peripheralManager.state == .poweredOn else {
             print("Bluetooth must be enabled.")
-            return
+            return false
+        }
+        
+        guard !self.registerredIDs.contains(beaconMinorID) else {
+            print("ERROR: beacon ID has already been registered")
+            return false
         }
         
         peripheralManager.stopAdvertising()
-        
         isBeaconEnabled.toggle()
         guard isBeaconEnabled else {
             print("Beacon is deactivated!")
             heartbeat = 0
-            return
+            return false
         }
         
         guard let bundleURL = Bundle.main.bundleIdentifier else {
             print("Can't get bundle identifier!")
-            return
+            return false
         }
         
         print("Activate Beacon UUID: \(beaconUUID), ID: \(beaconMinorID)")
@@ -62,6 +74,7 @@ class PeripheralManager: NSObject {
 
         let peripheralData = beaconRegion.peripheralData(withMeasuredPower: nil) as? [String: Any]
         peripheralManager.startAdvertising(peripheralData)
+        return true
     }
     
     @discardableResult
@@ -105,13 +118,15 @@ extension PeripheralManager: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
-        
-        // This logic remains mostly unchanged except replacing the managing structure
         self.beacons.removeAll()
+        self.registerredIDs.removeAll()
         for range in [CLProximity.unknown, .immediate, .near, .far] {
             let proximityBeacons = beacons.filter { $0.proximity == range }
             if !proximityBeacons.isEmpty {
                 self.beacons[range] = proximityBeacons
+                for beacon in proximityBeacons {
+                    self.registerredIDs.insert(Int(truncating: beacon.minor))
+                }
             }
         }
     }
