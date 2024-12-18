@@ -69,8 +69,15 @@ class PeripheralManager: NSObject {
         let beaconRegion = CLBeaconRegion(uuid: beaconUUID, major: 1, minor: CLBeaconMinorValue(beaconMinorID), identifier: bundleURL)
         beaconRegions.append(beaconRegion)
 
+#if os(macOS)
+        if let proximityUUID = NSUUID(uuidString: beaconUUID.uuidString) {
+            let region = BeaconRegion(proximityUUID: proximityUUID, major: 1, minor: UInt16(beaconMinorID))
+            peripheralManager.startAdvertising(region.peripheralDataWithMeasuredPower())
+        }
+#else
         let peripheralData = beaconRegion.peripheralData(withMeasuredPower: nil) as? [String: Any]
         peripheralManager.startAdvertising(peripheralData)
+#endif
         return true
     }
     
@@ -115,6 +122,7 @@ extension PeripheralManager: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
+        print("didRange: beacons: \(beacons)")
         self.beacons.removeAll()
         self.registerredIDs.removeAll()
         for range in [CLProximity.unknown, .immediate, .near, .far] {
