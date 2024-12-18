@@ -20,6 +20,7 @@ struct BeaconRegion {
         self.minor = minor
     }
 
+    // See: The Ultimate Guide to Apple’s Core Bluetooth, https://punchthrough.com/core-bluetooth-basics/, for info on 'measuredPower'
     func peripheralDataWithMeasuredPower(_ measuredPower: Int8 = -59) -> [String: Data] {
         let beaconKey = "kCBAdvDataAppleBeaconKey"
         var advBytes = [CUnsignedChar](repeating: 0, count: 21)

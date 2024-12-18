@@ -72,7 +72,7 @@ class PeripheralManager: NSObject {
 #if os(macOS)
         if let proximityUUID = NSUUID(uuidString: beaconUUID.uuidString) {
             let region = BeaconRegion(proximityUUID: proximityUUID, major: 1, minor: UInt16(beaconMinorID))
-            peripheralManager.startAdvertising(region.peripheralDataWithMeasuredPower())
+            peripheralManager.startAdvertising(region.peripheralDataWithMeasuredPower(-99))
         }
 #else
         let peripheralData = beaconRegion.peripheralData(withMeasuredPower: nil) as? [String: Any]
